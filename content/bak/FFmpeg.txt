@@ -1,0 +1,60 @@
+1、将文件都写入/dev/shm，然后再进行处理。要注意控制这个地方的文件大小
+
+
+1、暂停命令、继续命令、停止命令您这边当时的是怎么实现的
+gop切片
+2、帧数
+frame= 2513 fps= 13 q=28.0 size=   68352kB time=00:01:45.55 bitrate=5304.6kbits/s speed=0.546x
+视频帧数是 23.98 fps,
+3、转码速度fps
+
+
+用GO编写的FFMPEG包装器，可获取进度	：https://github.com/xfrr/goffmpeg
+
+基于官方FFmpeg发行版的Golang视频/音频编码器：https://github.com/phanletrunghieu/go-ffmpegbin
+
+https://github.com/xfrr/goffmpeg
+
+例子多：https://github.com/alon-ne/goav   
+
+一个简单，快速且有趣的软件包，用于在Go中构建命令行应用：https://github.com/urfave/cli
+
+关注：
+调用ffmpeg命令，进行视频转码：https://github.com/word-go/ffmpeg2mp4
+FFmpeg-go是满足您所有Go需求的ffmpeg：https://github.com/eladg/ffmpeg-go
+fflite是FFmpeg包装器，用于最小化进度可视化，同时保持CLI的灵活性：https://github.com/malashin/fflite
+golang 运行系统命令、ffmpeg命令：https://zhuanlan.zhihu.com/p/136985097
+https://github.com/oldfritter/ffmpeg
+
+参考：
+ffmpeg命令行工具周围的go库界面：https://github.com/benhinchley/ffmpeg
+
+抛弃：
+简单的微服务，可使用ffmpeg转换视频文件并通过NATS接收命令：https://github.com/pztrn/ffmpeger
+使用FFMpeg二进制文件来处理视频文件：https://github.com/asticode/go-astiffmpeg
+ffmpeg转换包装器工具：https://github.com/suntong/ffcvt
+
+
+
+
+1、golang：要安装ffmpeg    pass
+2、java
+
+https://github.com/eguid/FFCH4J
+
+https://blog.csdn.net/eguid_1/article/details/52968220
+https://www.cnblogs.com/zhwl/p/4670478.html
+https://www.cnblogs.com/Dreamer-1/p/10394011.html
+
+
+https://blog.csdn.net/hitxqh/article/details/72901120
+
+不推荐
+https://github.com/tonydeng/fmj
+
+
+显然第一种方案更好，相对于启动ffmpeg进程来说，ffmpeg本身的执行时间更长，所以启动进程这样的消耗几乎可以忽略不计。
+
+如果是启动ffmpeg进程，你的go主控几乎不会占用CPU和内存，监控系统资源，不想折腾的话，用 os/exec 读取 free 和 mpstat 的输出就可以了，这两个都可以以指定间隔不断的输出系统内存和CPU占用。
+
+

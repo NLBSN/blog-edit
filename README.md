@@ -8,7 +8,14 @@
 
 #### 安装教程
 
+https://travis-ci.org/
+
 hugo server  
+
+hugo server --disableFastRender  
+
+hugo  
+
 hugo --theme=tranquilpeak --buildDrafts
 
 

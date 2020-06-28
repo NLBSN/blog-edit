@@ -2,7 +2,7 @@ baseURL = "https://NLBSN.github.io"
 # baseURL = "https://zzf35.gitee.io"
 languageCode = "en-us"
 defaultContentLanguage = "zh-cn"
-title = "帅小伙的博客"
+title = "爱喝饮料的少年"
 theme = "tranquilpeak"
 disqusShortname = "帅小伙"
 # googleAnalytics = "UA-123-45"
@@ -18,7 +18,7 @@ canonifyurls = true
   archive = "archives"
 
 [author]
-  name = "渣吧，少年"
+  name = "爱喝饮料的少年"
   bio = "一个酷酷的**帅小伙**"
   job = "运维开发工程师"
   location = "山西"

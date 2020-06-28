@@ -1,6 +1,6 @@
 ---
 title: "docker搭建prometheus+grafana监控"
-date: 2020-06-18
+date: 2020-06-18 01:00:00
 categories:
   - 容器
   - docker
@@ -15,28 +15,41 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193253.p
 <!--more-->
 
 >大纲：
-&nbsp; &nbsp;  1、为什么要进行搭建，以及搭建的好处
-&nbsp; &nbsp;  2、prometheus 的搭建
-&nbsp; &nbsp;  3、grafana 的搭建
-&nbsp; &nbsp;  4、cadvisor 的搭建
-&nbsp; &nbsp;  5、elasticsearch 的搭建
-&nbsp; &nbsp;  6、filebeat 的搭建
-&nbsp; &nbsp;  7、elasticsearch_exporter 的搭建
-&nbsp; &nbsp;  8、node-exporter 的搭建
+>1、为什么要进行搭建，以及搭建的好处   
+>
+>2、prometheus 的搭建  
+>3、grafana 的搭建  
+>4、cadvisor 的搭建  
+>5、elasticsearch 的搭建  
+>6、filebeat 的搭建  
+>7、elasticsearch_exporter 的搭建  
+>8、node-exporter 的搭建  
 
-#1、为什么要进行搭建，以及搭建的好处
-&nbsp; &nbsp;  这次的搭建主要是为了解决数据监控的问题，顺便解决机器的日常维护以及容器的监控。
-&nbsp; &nbsp;  其实监控系统公司已经存在一套zabbix监控了，那我为什么还要重搭一套呢？答：(1)、zabbix监控的报警我现在邮箱有上千封；(2)、容器的监控，如果有可能会去监控kubernetes集群；(3)、体验目前比较流行的监控。
-&nbsp; &nbsp;  **这次搭建主要是利用docker容器进行**，好处就不用我多说了，大家都知道。这篇文章会让你用最快的速度入门体验到pormetheus监控，如果有可能我会在接下来的文章中更新一些自己自定义的监控方案(当然了，也是一些比较基础的)。
-&nbsp; &nbsp;  ***本篇不会涉及到报警的设置***
-&nbsp; &nbsp;  ***如果在启动容器时报错，最有可能的是挂载进容器的目录权限不够，最简单的方法，给777所有权限即可***
+# 1、为什么要进行搭建，以及搭建的好处
 
-#2、prometheus 的搭建
-&nbsp; &nbsp;  prometheus以及相关的大部分组件都是采用**go语言**进行编写的，所以安装配置及其简单。这里采用官方提供的镜像进行搭建。
-&nbsp; &nbsp;  prometheus我主要是用这个时序数据库进行采集分析的，不做告警处理。 
-&nbsp; &nbsp;  备注：prometheus.yml 这个配置文件，你可以先从镜像里复制一份出来，然后进行修改，也可以直接复制我下面的配置文件进行修改。
-&nbsp; &nbsp;  因为我是单台机器进行部署的，如果你需要监测多台机器，只需要在数组中配置多个ip即可，形式如;['10.16.88.44:9090','10.16.88.45:9090']。
-&nbsp; &nbsp;  目前这个配置文件中配置了这次搭建所需要的所有的组件，如果你以后还要增加组件，只需修改这个配置文件，然后重启prometheus这个服务即可。
+   这次的搭建主要是为了解决数据监控的问题，顺便解决机器的日常维护以及容器的监控。
+
+   其实监控系统公司已经存在一套zabbix监控了，那我为什么还要重搭一套呢？
+
+      答：(1)、zabbix监控的报警我现在邮箱有上千封；
+    
+      (2)、容器的监控，如果有可能会去监控kubernetes集群；
+    
+      (3)、体验目前比较流行的监控。
+
+   **这次搭建主要是利用docker容器进行**，好处就不用我多说了，大家都知道。这篇文章会让你用最快的速度入门体验到pormetheus监控，如果有可能我会在接下来的文章中更新一些自己自定义的监控方案(当然了，也是一些比较基础的)。
+
+   ***本篇不会涉及到报警的设置***
+
+   ***如果在启动容器时报错，最有可能的是挂载进容器的目录权限不够，最简单的方法，给777所有权限即可***
+
+# 2、prometheus 的搭建
+
+   prometheus以及相关的大部分组件都是采用**go语言**进行编写的，所以安装配置及其简单。这里采用官方提供的镜像进行搭建。
+   prometheus我主要是用这个时序数据库进行采集分析的，不做告警处理。 
+   备注：prometheus.yml 这个配置文件，你可以先从镜像里复制一份出来，然后进行修改，也可以直接复制我下面的配置文件进行修改。
+   因为我是单台机器进行部署的，如果你需要监测多台机器，只需要在数组中配置多个ip即可，形式如;['10.16.88.44:9090','10.16.88.45:9090']。
+   目前这个配置文件中配置了这次搭建所需要的所有的组件，如果你以后还要增加组件，只需修改这个配置文件，然后重启prometheus这个服务即可。
 ```
 [root@tag config]# cat prometheus.yml 
 # my global config
@@ -97,10 +110,12 @@ services:
 [root@tag yaml]# docker-compose -f prometheus.yaml up -d              #启动容器
 ```
 http://ip地址:9090
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-67a180278a3c3313.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
 
-#3、grafana 的搭建(效果图的展示以后再写)
-&nbsp; &nbsp;  这个服务主要是将pormetheus采集过来的数据做可视化的界面展示的，虽然pormetheus也带有界面展示，但是它的界面展示太单一了，没有grafana的好看。
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628162941.jpg)
+
+# 3、grafana 的搭建(效果图的展示以后再写)
+
+   这个服务主要是将pormetheus采集过来的数据做可视化的界面展示的，虽然pormetheus也带有界面展示，但是它的界面展示太单一了，没有grafana的好看。
 ```
 [root@tag yaml]# cat grafana.yaml 
 version: '3.1'
@@ -119,11 +134,15 @@ services:
 [root@tagyaml]#docker-compose -f grafana.yaml up -d              #启动容器
 ```
 出现类似下面的界面就算成功，我这里放出来的是我已经搭建好的界面了。
-http://ip地址:3000
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-cccedeffa4394893.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
 
-#4、cadvisor 的搭建
-&nbsp; &nbsp;  这个服务主要是将容器的各种信息采集过来，主要是为了解决docker stats的问题(存储、展示)，然后传到prometheus。有关容器日志的相关知识，请自行去学习补充，目前只需要知道，当你采用docker的默认的日志配置时，采用cadvisor是可以采到日志信息的。
+http://ip地址:3000
+
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628162958.jpg)
+
+# 4、cadvisor 的搭建
+
+   这个服务主要是将容器的各种信息采集过来，主要是为了解决docker stats的问题(存储、展示)，然后传到prometheus。有关容器日志的相关知识，请自行去学习补充，目前只需要知道，当你采用docker的默认的日志配置时，采用cadvisor是可以采到日志信息的。
+
 ***注意：privileged 这个配置选项，必须配置，否则会出现各种报错，如果你想自行折腾了，可以尝试着不去配置***
 ```
 [root@tag yaml]# cat cadvisor.yaml 
@@ -147,11 +166,14 @@ services:
 [root@tagyaml]#docker-compose -f cadvisor.yaml up -d              #启动容器
 ```
 http://ip地址:8084
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-a6ba90a11831e170.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
 
-#5、elasticsearch 搭建
-&nbsp; &nbsp;  elasticsearch 我这里采用的也是官方提供的镜像，并没有采用第三方的镜像。官方这里提供 的docker-compose安装的配置是采用了集群的形式，我这里就直接拿来使用了。
-&nbsp; &nbsp;  **注意：**elasticsearch 采集到的数据是无法直接交给prometheus进行直接的使用的，需要通过一个中转的 elasticsearch_exporter 插件服务(后面也会进行安装)，才能让prometheus采集到。
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163013.jpg)
+
+# 5、elasticsearch 搭建
+
+   elasticsearch 我这里采用的也是官方提供的镜像，并没有采用第三方的镜像。官方这里提供 的docker-compose安装的配置是采用了集群的形式，我这里就直接拿来使用了。
+
+   注意：elasticsearch 采集到的数据是无法直接交给prometheus进行直接的使用的，需要通过一个中转的 elasticsearch_exporter 插件服务(后面也会进行安装)，才能让prometheus采集到。
 
 ```
 [root@tag yaml]# cat elasticsearch.yaml 
@@ -204,10 +226,12 @@ networks:
 [root@tagyaml]#docker-compose -f elasticsearch.yaml up -d              #启动容器
 ```
 http://ip地址:9200
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-6bd15485528eb23e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
 
-#6、filebeat 的搭建
-&nbsp; &nbsp;  filebeat 的作用主要是将采集到的日志文件发送给刚刚上面搭建的 elasticsearch。
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163032.jpg)
+
+# 6、filebeat 的搭建
+
+   filebeat 的作用主要是将采集到的日志文件发送给刚刚上面搭建的 elasticsearch。
 ```
 [root@tag config]# cat filebeat.docker.yml 
 filebeat.inputs:
@@ -256,11 +280,14 @@ services:
 [root@tagyaml]#docker-compose -f filebeat.yaml up -d              #启动容器
 ```
 如果采集到数据，可以在这个界面看到：http://ip地址:9200/_search?pretty
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-2c919e3aec570c0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163050.jpg)
 
-#7、elasticsearch_exporter 的搭建
-&nbsp; &nbsp;  filebeat 已经将日志采集到 elasticsearch 中了，那么prometheus怎么才能拿到elasticsearch 中的日志呢？通过刚刚暴露的9200端口？你可以自己尝试着这样配置一下，看看是否可以取到相关的日志信息，顺便看看prometheus默认取的是elasticsearch 9200端口的哪个页面的日志信息。
-&nbsp; &nbsp;  ***elasticsearch_exporter*** 的作用是将elasticsearch 9200端口的日志文件，处理成prometheus 可以直接采集的数据。然后交给9108进行暴露。(这一段纯属博主猜测，并未去看真正的源代码，如有解读错误，还请各位指出)。
+
+# 7、elasticsearch_exporter 的搭建
+
+   filebeat 已经将日志采集到 elasticsearch 中了，那么prometheus怎么才能拿到elasticsearch 中的日志呢？通过刚刚暴露的9200端口？你可以自己尝试着这样配置一下，看看是否可以取到相关的日志信息，顺便看看prometheus默认取的是elasticsearch 9200端口的哪个页面的日志信息。
+
+   ***elasticsearch_exporter*** 的作用是将elasticsearch 9200端口的日志文件，处理成prometheus 可以直接采集的数据。然后交给9108进行暴露。(这一段纯属博主猜测，并未去看真正的源代码，如有解读错误，还请各位指出)。
 ```
 [root@tag yaml]# cat elasticsearch_exporter.yaml 
 version: '3.1'
@@ -279,12 +306,16 @@ services:
 [root@tagyaml]#docker-compose -f elasticsearch_exporter.yaml up -d              #启动容器
 ```
 http://ip地址:9108/
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-b6f5675d59393bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
-这是转发后的页面：http://ip地址:9108/metrics
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-56444b92d37a044f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
 
-#8、node-exporter 的搭建
-&nbsp; &nbsp;  上面采集了容器的信息、容器的日志信息，那么服务器自己本身的信息怎么办？prometheus 官方提供了 ***node-exporter*** 这个组件进行服务器底层信息的采集。
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163107.jpg)
+
+这是转发后的页面：http://ip地址:9108/metrics
+
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163123.jpg)
+
+# 8、node-exporter 的搭建
+
+   上面采集了容器的信息、容器的日志信息，那么服务器自己本身的信息怎么办？prometheus 官方提供了 ***node-exporter*** 这个组件进行服务器底层信息的采集。
 
 ```
 [root@tag yaml]# cat node-exporter.yaml 
@@ -302,8 +333,9 @@ services:
 [root@tagyaml]#docker-compose -f node-exporter.yaml up -d              #启动容器
 ```
 http://ip地址:9100/metrics
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-3cf7e64cf235060d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
+
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163139.jpg)
 
 ***通过这个页面：***http://10.16.88.44:9090/targets，可以看到四个数据源到已经连接到了。
 
-![image.png](https://upload-images.jianshu.io/upload_images/7906353-080da1107ebd2f9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/750)
+![image.png](https://gitee.com/zzf35/cloudimg/raw/master/img/20200628163156.jpg)

@@ -23,7 +23,15 @@ docker容器的在线以及二进制安装。以及一些简单的配置。
 卸载老版本的 docker 及其相关依赖
 
 ```
-sudo yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine docker-ce -y
+$ sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine \
+                  -y
 ```
 
 删除旧的docker文件
@@ -101,14 +109,24 @@ Available Packages
 
 选则其中一个包安装
 
+默认安装：(以下命令二选一)
+
 ```
-[root@DESKTOP-KQN1KKC ~]# yum install -y docker-ce-19.03.12
+sudo yum install docker-ce
+sudo yum install docker-ce docker-ce-cli containerd.io
+```
+
+指定版本安装：(以下命令二选一)
+
+```
+sudo yum install -y docker-ce-19.03.12
+sudo yum install -y docker-ce-19.03.12 docker-ce-cli-19.03.12 containerd.io
 ```
 
 ## 安装docker-compose
 
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose
 

@@ -1,6 +1,6 @@
 ---
 title: "博客开篇"
-date: 2020-06-28
+date: 2020-06-05
 categories:
 - 日常
 - 生活
@@ -18,7 +18,7 @@ coverImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200619171233.jpg
 metaAlignment: center
 ---
 
-今天是博客正式开始上线的第一天。
+​    加油！！！
 <!--more-->
 
 记录自己的生活，工作，兴趣爱好等等方面的东西。将博客变成自己的另一个小伙伴，一个专注倾听的小伙伴。
@@ -34,3 +34,5 @@ metaAlignment: center
 5. ansible的配置文件yaml学会编写
 6. 网络方面的知识存储
 7. python
+
+学习不只是单纯的将软件学会如何应用，更加应该去深刻的去学习它的一些原理和概念性的东西。

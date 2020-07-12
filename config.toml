@@ -1,4 +1,4 @@
-baseURL = "https://NLBSN.github.io"
+baseURL = "https://nlbsn.github.io"
 # baseURL = "https://zzf35.gitee.io"
 languageCode = "en-us"
 defaultContentLanguage = "zh-cn"

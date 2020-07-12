@@ -50,7 +50,7 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193253.p
    备注：prometheus.yml 这个配置文件，你可以先从镜像里复制一份出来，然后进行修改，也可以直接复制我下面的配置文件进行修改。
    因为我是单台机器进行部署的，如果你需要监测多台机器，只需要在数组中配置多个ip即可，形式如;['10.16.88.44:9090','10.16.88.45:9090']。
    目前这个配置文件中配置了这次搭建所需要的所有的组件，如果你以后还要增加组件，只需修改这个配置文件，然后重启prometheus这个服务即可。
-```
+```yaml
 [root@tag config]# cat prometheus.yml 
 # my global config
 global:
@@ -116,7 +116,7 @@ http://ip地址:9090
 # 3、grafana 的搭建(效果图的展示以后再写)
 
    这个服务主要是将pormetheus采集过来的数据做可视化的界面展示的，虽然pormetheus也带有界面展示，但是它的界面展示太单一了，没有grafana的好看。
-```
+```yaml
 [root@tag yaml]# cat grafana.yaml 
 version: '3.1'
 
@@ -175,7 +175,7 @@ http://ip地址:8084
 
    注意：elasticsearch 采集到的数据是无法直接交给prometheus进行直接的使用的，需要通过一个中转的 elasticsearch_exporter 插件服务(后面也会进行安装)，才能让prometheus采集到。
 
-```
+```yaml
 [root@tag yaml]# cat elasticsearch.yaml 
 version: '3.1'
 services:
@@ -232,7 +232,7 @@ http://ip地址:9200
 # 6、filebeat 的搭建
 
    filebeat 的作用主要是将采集到的日志文件发送给刚刚上面搭建的 elasticsearch。
-```
+```yaml
 [root@tag config]# cat filebeat.docker.yml 
 filebeat.inputs:
 - type: log

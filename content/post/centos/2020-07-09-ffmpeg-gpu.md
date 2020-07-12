@@ -5,9 +5,11 @@ toc: true
 tags:
   - linux
   - centos
+  - ffmpeg
 categories:
   - linux
   - centos
+  - ffmpeg
 thumbnailImagePosition: left
 thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200628112608.jpg
 
@@ -44,6 +46,8 @@ Linux平台显卡驱动的安装思路，以及调用ffmpeg时的一些思路。
 # 一、查询自己的显卡是否支持硬件编解码(如不支持，那么后面的就别看了)
 
 查询自己的显卡是否支持gpu解码：[nvidia官网查询 链接](https://developer.nvidia.com/video-encode-decode-gpu-support-matrix)
+
+如果你的显卡支持编解码操作，那么重点来了，**一定一定一定要看"MAX # of concurrent sessions"这一列的参数**，这个参数是指，支持你同时编解码的最大进程数(应该可以这么说)。举例：你想同时运行5个编解码进程，那么不好意思，看看你的显卡最多支持几个。但是可以通过某些手段去做破解。
 
 *查询发现我的mx150编解码都不支持，有点郁闷，但还是会把后面的过程走完。之后有了新的显卡，再去做文档修改*
 
@@ -401,6 +405,44 @@ ffmpeg -hwaccel_device 0 -hwaccel cuda -i input -vf scale_npp=-1:720 -c:v h264_n
 ```
 
 官方链接：https://trac.ffmpeg.org/wiki/HWAccelIntro
+
+
+
+
+
+生成每隔60秒的视频切片，csv格式索引文件：
+
+```bash
+ffmpeg -re -i input.mp4 -c copy -f segment -segment_format mp4 -segment_time 60 -segment_list_type csv -segment_list filelist.csv test_output-%d.mp4
+
+ffmpeg -re -i 4K-T-ara-Number9.mp4 -c copy -f segment -segment_format mp4 -segment_times 60 -segment_list_type csv -segment_list filelist.csv test_output-%d.mp4
+```
+
+生成csv格式索引文件：时间点位60,90,120,剩下的
+
+```
+ffmpeg -re -i input.mp4 -c copy -f segment -segment_format mp4 -segment_time 60 -segment_list_type csv -segment_list filelist.csv test_output-%d.mp4
+
+ffmpeg -re -i 4K-T-ara-Number9.mp4 -c copy -f segment -segment_format mp4 -segment_times 60,90,120 -segment_list_type csv -segment_list filelist.csv test_output-%d.mp4
+```
+
+
+
+
+
+查看切片的最后的时间戳：
+
+```bash
+ffprobe -v quiet -show_packets -select_streams v input.mp4 2> x |grep pts_time | tail -n 3
+```
+
+查看切片的最开始的时间戳：
+
+```
+ffprobe -v quiet -show_packets -select_streams v input.mp4 2> x |grep pts_time | head -n 3
+```
+
+
 
 
 

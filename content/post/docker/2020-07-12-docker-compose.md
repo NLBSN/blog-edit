@@ -22,7 +22,7 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193715.j
 
 # elasticsearch
 
-```
+```yaml
 version: '3.1'
 services:
   elasticsearch:
@@ -104,7 +104,7 @@ networks:
 
 # etcd
 
-```
+```yaml
 version: '3.7'
 
 services:
@@ -205,7 +205,7 @@ notif:
 
 # java
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -303,7 +303,7 @@ networks:
 
 # nginx(补充)
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -327,7 +327,7 @@ networks:
 
 # openmeetings
 
-```
+```yaml
 version: '3.7'
 
 services:
@@ -348,7 +348,7 @@ networks:
 
 # postgis
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -396,7 +396,7 @@ networks:
 
 # registry
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -411,7 +411,7 @@ services:
 
 # jenkins
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -439,7 +439,7 @@ networks:
 
 # rabbitmq
 
-```
+```yaml
 version: '3.1'
 services:
   rabbitmq:
@@ -457,7 +457,7 @@ services:
 
 # rap2
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -496,7 +496,7 @@ services:
 
 # redis
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -532,7 +532,7 @@ services:
 
 中文乱码需要去将mysql字符换成utf-8
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -564,7 +564,7 @@ services:
 
 # kafka
 
-```
+```yaml
 version: '3.1'
 services:
   zoo1:
@@ -595,7 +595,7 @@ services:
 
 # prometheus
 
-```
+```yaml
 version: '3.7'
 
 services:
@@ -634,7 +634,7 @@ services:
 
 
 
-```
+```yaml
 # cat prometheus.yml
 
 # my global config
@@ -684,7 +684,7 @@ RUN chmod -R 777 /prometheus
 
 # grafana
 
-```
+```yaml
 version: '3.7'
 
 services:
@@ -720,7 +720,7 @@ services:
 
 # node-exporter
 
-```
+```yaml
 version: '3.7'
 
 services:
@@ -755,7 +755,7 @@ services:
 
 # pushgateway
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -790,7 +790,7 @@ services:
 
 # cadvisor
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -829,7 +829,7 @@ services:
 
 # dcgm-exporter
 
-```
+```shell
 #!/bin/bash
 
 sudo docker run -d --gpus all --rm -p 9400:9400 nvidia/dcgm-exporter:1.7.2
@@ -841,7 +841,7 @@ sudo docker run -d --gpus all --rm -p 9400:9400 nvidia/dcgm-exporter:1.7.2
 
 # elasticsearch_exporter
 
-```
+```yaml
 version: '3.1'
 
 services:
@@ -876,7 +876,7 @@ services:
 
 # filebeat
 
-```
+```yaml
 version: '3.1'
 services:
   filebeat1:

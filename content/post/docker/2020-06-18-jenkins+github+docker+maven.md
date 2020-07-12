@@ -33,7 +33,7 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193619.p
 &nbsp; &nbsp;  点击：系统管理 --> 全局工具配置
 &nbsp; &nbsp;  大家根据自己的实际情况配置即可
 &nbsp; &nbsp;  由于本人前面使用的是数据卷的形式，所以将相关的软件cp到jenkins_data数据卷进行安装。
-```
+```shell
 [root@tag _data]# docker volume inspect jenkins_data
 [
     {
@@ -52,7 +52,7 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193619.p
 ]
 ```
 &nbsp; &nbsp;  *可以直接将文件复制到挂载点(Mountpoint)：/var/lib/docker/volumes/jenkins_data/_data*
-```
+```shell
 [root@tag _data]# mkdir -p /var/lib/docker/volumes/jenkins_data/_data/soft
 [root@tag soft]# pwd
 /var/lib/docker/volumes/jenkins_data/_data/soft

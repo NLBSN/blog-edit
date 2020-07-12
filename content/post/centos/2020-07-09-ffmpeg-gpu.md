@@ -45,7 +45,9 @@ Linux平台显卡驱动的安装思路，以及调用ffmpeg时的一些思路。
 
 查询自己的显卡是否支持gpu解码：[nvidia官网查询 链接](https://developer.nvidia.com/video-encode-decode-gpu-support-matrix)
 
-**这个标题对于GPU硬件编码的支持列表**
+*查询发现我的mx150编解码都不支持，有点郁闷，但还是会把后面的过程走完。之后有了新的显卡，再去做文档修改*
+
+**这个表格是对GPU硬件编码的支持列表**
 
 ![img](https://gitee.com/zzf35/cloudimg/raw/master/img/20200712211841.png)
 
@@ -53,7 +55,7 @@ Linux平台显卡驱动的安装思路，以及调用ffmpeg时的一些思路。
 
 ![img](https://gitee.com/zzf35/cloudimg/raw/master/img/20200712211851.png)
 
-**这个标题对于GPU硬件解码的支持列表**
+**这个表格是对GPU硬件解码的支持列表**
 
 ![img](https://gitee.com/zzf35/cloudimg/raw/master/img/20200712211856.png)
 
@@ -321,6 +323,8 @@ DCGM_FI_DEV_MEM_CLOCK{gpu="0", UUID="GPU-604ac76c-d9cf-fef3-62e9-d92044ab6e52"} 
 DCGM_FI_DEV_MEMORY_TEMP{gpu="0", UUID="GPU-604ac76c-d9cf-fef3-62e9-d92044ab6e52"} 9223372036854775794
 ...
 ```
+
+备注：目前这个时间点，docker-compose还不支持gpu的调用参数，所以暂时只能用命令的形式。
 
 
 

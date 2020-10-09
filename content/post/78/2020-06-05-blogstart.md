@@ -2,11 +2,9 @@
 title: "博客开篇"
 date: 2020-06-05
 categories:
-- 日常
-- 生活
+- 78
 tags:
-- 生活
-- 爱情
+- 78
 keywords:
 - disqus
 - google

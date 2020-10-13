@@ -37,7 +37,7 @@ $ sudo yum remove docker \
 删除旧的docker文件
 
 ```
-rm -rf /var/lib/docker
+sudo rm -rf /var/lib/docker
 ```
 
 使用yum进行安装
@@ -51,7 +51,7 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 安装仓库地址
 
 ```
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
 查看仓库内可选的版本包

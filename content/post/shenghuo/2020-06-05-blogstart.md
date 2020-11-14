@@ -2,9 +2,9 @@
 title: "博客开篇"
 date: 2020-06-05
 categories:
-- 78
+- 生活
 tags:
-- 78
+- 生活
 keywords:
 - disqus
 - google

@@ -3,9 +3,9 @@ title: "博客安装的简单记录"
 date: 2020-07-05 11:00:00
 toc: true
 tags:
-  - 78
+  - 生活
 categories:
-  - 78
+  - 生活
 thumbnailImagePosition: left
 thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200628112608.jpg
 ---

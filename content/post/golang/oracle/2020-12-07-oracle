@@ -1,0 +1,99 @@
+---
+title: "震惊！Gorm终于可以操作Oracle了"
+date: 2020-12-01 12:00:00
+categories:
+  - oracle
+  - 数据库
+tags:
+  - oracle
+  - 数据库
+thumbnailImagePosition: left
+thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193715.jpg
+
+
+
+---
+
+
+
+> 前言：写这篇文章的目的有两个，一是希望找到志同道合的伙伴一起维护这个库，提高这个库的代码质量。二是为了推广 gorm 的 oracle 驱动，避免因为操作 oracle 而编写大量的样板代码。同时也要感谢Go 语言中文网的站长 polaris 能用它的公众号为这个库进行推广。
+
+
+
+<!--more-->
+
+gorm-oracle 开源库地址：https://github.com/cengsin/oracle
+
+欢迎大家积极参与维护 。
+
+## 使用 gorm 连接 oracle
+
+前置条件
+
+- 首先安装 oracle 数据库客户端和 go-oci8
+
+- - oracle client: httpwww.oracle.com/technetwork/database/database-technologies/instant-client/downloads/index.html
+  - go-oci8: https://github.com/mattn/go-oci8
+
+- 之后配置好环境变量 LD_LIBRARY_PATH
+
+- - LD_LIBRAAY_PATH = ${oracle client path}
+
+## 获取 Gorm-Oracle 驱动
+
+```
+go get github.com/CengSin/oracle
+```
+
+## 在文件加载的时候初始化数据库连接
+
+```
+func init() {
+ con, err := gorm.Open(oracle.Open("system/oracle@127.0.0.1:1521/XE"), &gorm.Config{
+  Logger: logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), logger.Config{
+   SlowThreshold: 1 * time.Millisecond,
+   LogLevel:      logger.Warn,
+   Colorful:      true,
+  }),
+ })
+
+ if err != nil {
+  log.Fatalln(err)
+ }
+
+ if err = conn.AutoMigrate(&model.ClassInfo{}); err != nil {
+  log.Fatalln(err.Error())
+ }
+}
+```
+
+## 定义结构模型
+
+```
+type ClassInfo struct {
+ ClassId   int64  `gorm:"column:CLASSID;primaryKey"`
+ ClassName string `gorm:"column:CLASSNAME;size:50"`
+}
+
+func (c ClassInfo) TableName() string {
+ return `CLASSINFO`
+}
+```
+
+## 对数据库进行操作
+
+```
+func QueryCaseTest() {
+ classInfo := new(model.ClassInfo)
+ // 获取第一条记录（主键升序）
+ db.First(classInfo)
+ fmt.Printf("获取第一条记录（主键升序）%+v\n", classInfo)
+ // SELECT * FROM users ORDER BY id LIMIT 1;
+
+ // 获取第一条记录（主键升序）
+ classInfo = new(model.ClassInfo)
+ db.Take(classInfo)
+ fmt.Printf("获取第一条记录（主键升序）%+v\n", classInfo)
+ // SELECT * FROM users LIMIT 1;
+}
+```

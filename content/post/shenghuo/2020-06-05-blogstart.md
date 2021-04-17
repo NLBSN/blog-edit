@@ -6,9 +6,7 @@ categories:
 tags:
 - 生活
 keywords:
-- disqus
-- google
-- gravatar
+- 生活
 autoThumbnailImage: false
 thumbnailImagePosition: "top"
 thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200619171243.jpg

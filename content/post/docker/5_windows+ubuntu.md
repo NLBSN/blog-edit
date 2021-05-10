@@ -89,6 +89,12 @@ thumbnailImage: https://gitee.com/zzf35/cloudimg/raw/master/img/20200622193715.j
 
 参考自：https://blog.51cto.com/juestnow/2418932
 
+
+
+**备注：如果发现无法启动docker服务，可以尝试在ubuntu的图标，右键管理员启动，然后再去启动。**
+
+
+
 5. 测试
     查看ubuntu的ip地址
    ![img](https://gitee.com/zzf35/cloudimg/raw/master/img/20200624205821.png)
